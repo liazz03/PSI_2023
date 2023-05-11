@@ -1,35 +1,37 @@
-from typing import Any
-from django.db.models.query import QuerySet
 from django.shortcuts import render
+from typing import Any, Dict
+from django.db.models.query import QuerySet
 
-#added imports
 from django.views import generic
 from .models import Channel, Suscription
-# Create your views here.
+from django.core.exceptions import ObjectDoesNotExist
 
 class ChannelView(generic.ListView):
 
     model = Channel
-    template_name = 'channel.html' 
-    context_object_name = 'subscriptions'
+    template_name = "channel.html"
+    context_object_name = "subscriptions"
 
     def get_queryset(self):
-        subscriptions = []
 
-        channell = Channel.objects.filter(id=self.kwargs['pk']).first()
-
-        if channell is not None :
+        try:
+            channell = Channel.objects.get(id=self.kwargs['pk'])
             subscriptions = Suscription.objects.filter(channel=channell)
+            return subscriptions
         
-        return subscriptions
+        except ObjectDoesNotExist:
+            return []
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
-        channel = Channel.objects.filter(id = self.kwargs['pk']).first()
 
-        if channel is None:
-            context['error'] = f"No channels found with pk: {self.kwargs['pk']}" 
-            return context 
-        
+        try:
+            Channel.objects.get(id=self.kwargs['pk'])
+
+        except ObjectDoesNotExist:
+            context['error'] = "Channel of pk: " + str(self.kwargs['pk']) + " is not in database"
+            return context
+
         return context
+
 

@@ -30,7 +30,6 @@ urlpatterns = [
 
 # Forwards requests with the pattern application/ to the module application.urls
 urlpatterns += [
-    path('', RedirectView.as_view(url='application/', permanent=True)),
     path('application/', include('application.urls')),
 ]
 

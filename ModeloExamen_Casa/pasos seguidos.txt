@@ -34,12 +34,10 @@ DATABASES['default'].update(db_from_env)
 3.
 make createdb
 python3 manage.py migrate
-make create_super_user
 
 Ya se debería poder deplegar en local
 
-4. python3 manage.py startapp application
- settings.py --> INSTALLED_APPS añadir 'application.apps.ApplicationConfig'
+settings.py --> INSTALLED_APPS añadir 'application.apps.ApplicationConfig'
 
 5. Crear modelos
     make update_models
@@ -82,7 +80,6 @@ Modificar la siguiente linea en settings.py:
     ]
 
     -Crear ChannelView. --> Se usaron variables de contexto 
-    #Falta hacer lo de la variable error
     
 9. CREAR API------------------------------------------------
 
@@ -112,7 +109,7 @@ Modificar la siguiente linea en settings.py:
 - crear serializers.py en api
 
 
- VUE---------------------------------------------------------
+ VUE---------------------------------------------
  10.
 npm init vue@3.2 project_vue
 
