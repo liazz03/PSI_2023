@@ -49,13 +49,15 @@ Ya se debería poder deplegar en local
    hacer el populate.py
    make populate
 
+   en admin.py --> registrar modelos
+
    para acceder a la base de datos: psql -U alumnodb exam
 
 7. 
 Crear carpeta templates
 Añadir channel.html a carpeta templates
 Modificar la siguiente linea en settings.py:
-'DIRS': [os.path.join(BASE_DIR, 'templates')], // esta en la zona de templates
+'DIRS': [os.path.join(BASE_DIR, 'templates')], // está en la zona de templates
 
 8. -Añadir en urls de ModeloExamenProject lo siguiente:
     #included import 
@@ -82,7 +84,7 @@ Modificar la siguiente linea en settings.py:
     -Crear ChannelView. --> Se usaron variables de contexto 
     #Falta hacer lo de la variable error
     
-9. CREAR API--------------------------------
+9. CREAR API------------------------------------------------
 
 -python3 manage.py startapp api
 
@@ -110,7 +112,7 @@ Modificar la siguiente linea en settings.py:
 - crear serializers.py en api
 
 
- VUE--------------------------------------
+ VUE---------------------------------------------------------
  10.
 npm init vue@3.2 project_vue
 
@@ -135,19 +137,19 @@ crear fichero .env.development y añadir --> VITE_DJANGOURL=http://127.0.0.1:800
 añadir a settings.py en ModeloExamen: 
 
 MIDDLEWARE --> reempazar todo por lo siguiente (para asegurar xd)
-   
-    'corsheaders.middleware.CorsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',  # vue connect
+    'whitenoise.middleware.WhiteNoiseMiddleware', # vue connect
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',  
+    'django.middleware.clickjacking.XFrameOptionsMiddleware', 
 
 
- INSTALLED APS --> 'corsheaders',  
+ INSTALLED APS -->  'corsheaders',  
 
 
 
