@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+   Update Question
+{% endblock %}
+
+{% block content %}
+<h1 class="mb-3">Create or Update Question</h1>
+
+<form action="" method="POST">{% csrf_token %}
+    {{form.as_p}}
+    <a class="btn btn-outline-secondary" href='../'>Cancel</a>
+    <input class="btn btn-success" type="submit" value="Add">
+</form>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+python3 manage.py makemigrations
+python3 manage.py migrate
+
+virtualenv p1_env --python=python3.9
+source p1_env/bin/activate
+pip3 install django~=3.2
+pip install -r requirements.txt	//ver que no de error el dotenv.
+
+
+DEBUG
+EXPORT DEBUG=1
+----
+
+export TESTING=1 // to run db locally
+
+#create a new project
+django-admin startproject <project name>
+
+#create a new app django (project has to exist)
+python3 manage.py startapp <appname>
+
+#django
+urls --> of app in folder of project name each url pattern redirects to another url file (services etc)
+
+
+-------------practica 4-------------
+
+django rest:
+http://127.0.0.1:8000/api/(games, participant)
+
+Viewsets:
+def list, create, retrieve, update, partial_update, destroy --> can be overriten inside the viewset class
+
+Routers:
+routers create url patterns (NOT DEFINED BY PROGRAMMERS)
+
+------------VueClient----------------
+npm init vue@3.2
+npm install
+npm run dev
+
+
+routerlink --> redirect to another .vue page (inside the same one)
+hay carpeta para los Componentes y Views  (en prácticas se ha usado Components)
+
+------------Install vue---------------
+curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs    (en laboratorios ya viene instalado)
+

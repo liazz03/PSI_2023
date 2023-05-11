@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      
+      <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+      <title>
+         {% block title %} KahootClone {% endblock %}
+      </title>
+   </head>
+   <body>
+      <header>
+         {% block menu %}
+         <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">Llamahoot</a>
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item">
+                  <a class="nav-link" href="{% url 'home' %}"> Home</a>
+               </li>
+               {% if user.is_authenticated %}
+               <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}"> Log Out</a>
+               </li>
+               {% else %}
+               <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login' %}"> Log In</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="{% url 'signup' %}"> Sign-up</a>
+               </li>
+               {% endif %}
+            </ul>
+         </nav>
+         {% endblock %}
+      </header>
+
+
+      <div class="m-3">
+      {% block content %}
+      <!-- main block -->
+      {% endblock %}
+      </div>
+
+      <footer class="footer d-none d-sm-block fixed-bottom bg-secondary">
+         {% block footer %}
+         <p class="text-center">Lía Adriana Castañeda - Enrique Saiz</p>
+         {% endblock %}
+      </footer>
+   </body>
+</html>

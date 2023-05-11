@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+   Count Down
+{% endblock %}
+
+{% block content %}
+
+<h1>We will start in
+    <p id="countdown">{{ countdown }}</p>
+</h1>
+
+
+{% load static %}
+<audio controls loop autoplay hidden>
+    <source src="{% static 'audio/gamesonido1.mp3' %}" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+    var countdownElement = document.getElementById("countdown")
+    $(document).ready(function () {
+        function refresh() {
+            var countVal = countdownElement.innerHTML;
+            var newVal = parseInt(countVal) - 1;
+            console.log(newVal)
+            console.log(countVal)
+            if (newVal >= 0) {
+                countdownElement.innerHTML = newVal;
+            }
+            else { 
+                countdownElement.innerHTML = "Let's go!"
+                window.location.href = "/services/gamecountdown/";
+            }
+            setTimeout(refresh, 1000);
+        }
+        
+        $(function(){
+            refresh();
+        });
+    });
+</script>
+
+{% endblock content %}

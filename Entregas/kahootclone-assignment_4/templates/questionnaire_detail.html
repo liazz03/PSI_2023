@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}
+   Questionnaire Detail
+{% endblock %}
+
+{% block content %}
+<h1>Questionnaire: {{questionnaire.title}}</h1>
+<p>
+    <a class="btn btn-outline-info" href="{% url 'questionnaire-update' questionnaire.pk %}">Update title</a>
+    <a class="btn btn-success" href="{% url 'game-create' questionnaire.pk %}">Play game</a>
+</p>
+
+{% if questionnaire.question_set %}
+    <h2 class="m-2">Questions: </h2>
+    <ol>
+    {% for question in questionnaire.question_set.all %}
+        <li>
+            <p><a href={{question.get_absolute_url}}>{{question}}</a></p>
+            <p><a class="btn btn-sm btn-danger" href="{% url 'question-remove' question.pk %}">Remove</a></p>
+        </li>
+    {% endfor %}
+    </ol>
+{% else %}
+    <p>There are no Questions</p>
+{% endif %}
+
+<p>
+    <a class="btn btn-lg btn-primary" href="{% url 'question-create' questionnaire.pk %}">Create new Question</a>
+    <a class="btn btn-lg btn-secondary" href="{% url 'questionnaire-list' %}">Back to list</a>
+</p>
+
+{% endblock content %}

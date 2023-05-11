@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% load static %}
+<audio controls loop autoplay hidden>
+    <source src="{% static 'audio/jarabe.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<h1 class="text-center mt-5 mb-3">Correct Answer: {{ answer }} </h1>
+
+<h3 class="text-center">Percentage of correct Answers: {{ correct }} / {{ total }}</h3>
+
+<h2 class="text-center mt-3">Participant's score:</h2>
+{% if participants_list|length == 0 %}
+<p class="text-center">There are no participants in sight</p>
+{% else %}
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Points</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for participant in participants_list %}
+        {% if forloop.counter < 3 %}
+        <tr class="{% if forloop.counter == 1 %}bg-warning{% else %}bg-secondary{% endif %}">
+        {% else %}
+        <tr>
+        {% endif %}
+            <td>{{ forloop.counter }}</td>
+            <td>{{ participant }}</td>
+            <td>{{ participant.points }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+<div class="container text-center">
+    <a class="btn btn-lg btn-primary" href="{% url 'game-count-down' %}">Next</a>
+</div>
+{% endblock content %}

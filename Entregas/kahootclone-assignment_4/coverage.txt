@@ -1,0 +1,36 @@
+Name                                               Stmts   Miss  Cover   Missing
+--------------------------------------------------------------------------------
+models/__init__.py                                     0      0   100%
+models/admin.py                                       39      0   100%
+models/apps.py                                         4      0   100%
+models/constants.py                                    4      0   100%
+models/forms.py                                       34      0   100%
+models/migrations/0001_initial.py                     12      0   100%
+models/migrations/0002_alter_question_options.py       4      0   100%
+models/migrations/__init__.py                          0      0   100%
+models/models.py                                      81      2    98%   38, 76
+models/urls.py                                         4      0   100%
+models/views.py                                       15      0   100%
+--------------------------------------------------------------------------------
+TOTAL                                                197      2    99%
+Name                   Stmts   Miss  Cover   Missing
+----------------------------------------------------
+services/__init__.py       0      0   100%
+services/admin.py          0      0   100%
+services/apps.py           4      4     0%   1-6
+services/models.py         0      0   100%
+services/urls.py           7      0   100%
+services/views.py        258     33    87%   107-108, 171-173, 206-207, 274-278, 283-285, 309-314, 338-339, 353-354, 419-421, 438-439, 468-469, 475-477, 493-494, 518-522
+----------------------------------------------------
+TOTAL                    269     37    86%
+Name                                Stmts   Miss  Cover   Missing
+-----------------------------------------------------------------
+restServer/__init__.py                  0      0   100%
+restServer/admin.py                     0      0   100%
+restServer/apps.py                      4      0   100%
+restServer/migrations/__init__.py       0      0   100%
+restServer/models.py                    0      0   100%
+restServer/serializers.py              14      0   100%
+restServer/views.py                   114     25    78%   34-36, 46, 50, 69, 73, 77, 81, 110, 114, 118, 122, 157-159, 163, 168, 176, 182, 195, 197-198, 209, 213, 217, 221
+-----------------------------------------------------------------
+TOTAL                                 132     25    81%

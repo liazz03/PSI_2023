@@ -1,0 +1,13 @@
+Revisar el populate.py --> Da warnings de fechas (hay q suprimirlas)
+Revisar campos de los modelos --> hay algunos que ponen revisar
+
+
+revisar acceso ajeno a create views (UserPassesTestMixin): se comprueba que un 
+    user ajeno pueda crear (por ejemplo) una pregunta en un cuestionario de otro, 
+    PERO no se restringe el acceso
+
+mirar constants.py, game, y el test
+
+mirar los templates html de registration, ¿necesitamos todos? y pensar si metemos dentro de registration signup
+
+asegurarse de que solo haya 1 respuesta correcta a cada pregunta. Desde el modelo o desde la view?

@@ -1,0 +1,12 @@
+{% block content %}
+    {% if participants_list %}
+        <table class="table table-striped table-hover">
+            {% for participant in participants_list %}
+            <tr>
+                <td>{{ participant }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </ul>
+    {% endif %}
+{% endblock content %}

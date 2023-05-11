@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+   Home
+{% endblock %}
+
+{% block content %}
+<div class="text-center cover-container d-flex p-3 mx-auto flex-column">
+    <main role="main" class="inner cover">
+        <img src="{% static 'llamahoot.jpg' %}" class="img-fluid h-25" alt="Llamahoot logo">
+        <h1 class="cover-heading">Llamahoot: a KahootClone</h1>
+        <p class="lead">Join and Create your favourie KahootClone quizzes at Llamahoot. Now 100% llama-flavoured!</p>
+
+    {% if user.is_authenticated %}
+        <p class="lead">Hi {{ user.username }}!</p>
+        {% if questionnaire_list %}
+            <h2>Lastest Questionnaires</h2>
+                <ul class="list-unstyled">
+                    {% for quest in questionnaire_list %}
+                    <li>
+                        <a href="{{quest.get_absolute_url }}">{{quest}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+        {% else %}
+            <p>You have no questionnaires</p>
+        {% endif %}
+        
+        <p class="lead">
+            <a class="btn btn-lg btn-primary" href="{% url 'questionnaire-create' %}">Create new Questionnaire</a>
+            <a class="btn btn-lg btn-outline-primary" href="{% url 'questionnaire-list' %}">See all my Questionnaires</a>
+            <a class="btn btn-lg btn-secondary" href="{% url 'logout' %}">Log Out</a>
+        </p>
+    {% else %}
+        <p>You are not logged in</p>
+        <p class="lead">
+            <a class="btn btn-lg btn-outline-primary" href="{% url 'login' %}">Log In</a>
+            <a class="btn btn-lg btn-primary" href="{% url 'signup' %}">Sign Up</a>
+        </p>
+    {% endif %}
+    </main>
+</div>
+{% endblock content %}

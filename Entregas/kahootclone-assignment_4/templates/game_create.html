@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}
+   Create Game
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        function refresh() {
+            $.ajax({
+                url: "/services/gameUpdateParticipant/{{ game.publicId }}",
+                success: function(data) {
+                    $('#participants').html(data);
+                }
+            });
+            setTimeout(refresh, 2000);
+        }
+        
+        $(function(){
+            refresh();
+        });
+    });
+</script>
+<script type="text/javascript">
+    function copyPIN() {
+        var r = document.createRange();
+        r.selectNode(document.getElementById("PIN"));
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(r);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+    }
+</script>
+
+
+{% load static %}
+<audio controls loop autoplay hidden>
+    <source src="{% static 'audio/condorpasa.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+    
+
+<div class="text-center">
+    <h1>Connect to Game</h1>
+    with PIN
+    <h3 id="PIN">{{ game.publicId }}</h3>
+
+    <p>
+        <a class="btn btn-lg btn-primary" href="{% url 'game-count-down' %}">Start Game</a>
+        <button class="btn btn-lg btn-outline-secondary" onclick="copyPIN()">Copy</button>
+    </p>
+
+    <p>As soon as you join, you will appear in this list</p>
+    <h2>List of participants</h3>
+    <div class="container">
+        <table class="mx-auto" id="participants">
+        <tbody>
+            <tr>{% include "game_update_participant.html" %}</tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

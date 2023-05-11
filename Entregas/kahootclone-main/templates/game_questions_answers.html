@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% load static %}
+<audio controls loop autoplay hidden>
+    <source src="{% static 'audio/jarabe.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function() {
+            window.location.href = "/services/gamecountdown/";
+        },
+        {{ answer_time }}); // In miliseconds
+    });
+</script>
+
+<h1>{{ question }}</h1>
+
+
+<table class="table table-striped table-hover">
+    {% for answ in answers %}
+    <tr>
+        <td>{{ answ }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

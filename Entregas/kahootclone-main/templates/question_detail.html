@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+   Question Detail
+{% endblock %}
+
+{% block content %}
+<h1>Question: {{question.question}}</h1>
+<p><a class="btn btn-lg btn-primary" href="{% url 'question-update' question.pk %}">Update Question</a>
+
+
+{% if question.answer_set.all %}
+    <h2 class="m-2">Answers: </h2>
+    <table class="table table-striped table-hover">
+        <tr class="first-table-row">
+            <th>Answer</th>
+            <th>Correct</th>
+            <td></td>
+        </tr>
+        {% for answer in question.answer_set.all %}
+        <tr>
+            <td>{{answer}}</td>
+            <td>{{answer.correct}}</td>
+            <td>
+                <a class="btn btn-sm btn-outline-primary" href="{% url 'answer-update' answer.pk %}">Update</a>
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'answer-remove' answer.pk %}">Remove</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</ul>
+{% else %}
+    <p>There are no answers</p>
+{% endif %}
+
+<p>{% if question.answer_set.all|length < 4 %}
+   <a class="btn btn-lg btn-primary" href="{% url 'answer-create' question.pk %}">Add answer</a>
+   {% endif %}
+   <a class="btn btn-lg btn-secondary" href="{% url 'questionnaire-detail' question.questionnaire.pk %}">Back to Questionnaire</a>
+</p>
+{% endblock content %}

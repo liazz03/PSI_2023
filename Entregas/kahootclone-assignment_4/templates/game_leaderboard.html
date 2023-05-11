@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}
+   Leaderboard
+{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center">Leaderboard</h1>
+
+{% if participants_list|length == 0 %}
+<p class="text-center">It seems that the game was very quiet...</p>
+{% else %}
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Points</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for participant in participants_list %}
+        {% if forloop.counter < 3 %}
+        <tr class="{% if forloop.counter == 1 %}bg-warning{% else %}bg-secondary{% endif %}">
+        {% else %}
+        <tr>
+        {% endif %}
+            <td>{{ forloop.counter }}</td>
+            <td>{{ participant }}</td>
+            <td>{{ participant.points }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2 class="mt-3 mb-5 text-center">{{ participants_list|first }} wins!</h2>
+{% endif %}
+
+<div class="container text-center">
+    <a class="btn btn-lg btn-primary" href="{% url 'home' %}">Finish</a>
+</div>
+{% endblock content %}

@@ -1,0 +1,142 @@
+SETUP-----------------------------------------------------------
+virtualenv exam_env --python=python3.9
+source exam_env/bin/activate
+./install.sh
+sudo systemctl restart postgresql    # en labs es necesario
+----------------------------------------------------------
+
+1. django-admin startproject ModeloExamenProject
+    python3 manage.py startapp application
+
+2. ir a settings.py:
+
+import dj_database_url # importar al inicio
+...
+ALLOWED_HOSTS = ['127.0.0.1']
+...
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+db_from_env = dj_database_url.config(default='postgres://alumnodb:alumnodb@localhost:5432/exam',
+conn_max_age=500)
+
+POSTGRESQL_URL = 'postgres://alumnodb:alumnodb@localhost:5432/exam'
+
+db_from_env = dj_database_url.config(default=POSTGRESQL_URL,
+                                         conn_max_age=500)
+
+DATABASES['default'].update(db_from_env)
+
+3.
+make createdb
+python3 manage.py migrate
+make create_super_user
+
+Ya se debería poder deplegar en local
+
+4. python3 manage.py startapp application
+ settings.py --> INSTALLED_APPS añadir 'application.apps.ApplicationConfig'
+
+5. Crear modelos
+    make update_models
+
+6. en application --> crear carpeta management --> crear carpeta commands
+   en carpeta management/commands --> crear fichero populate.py
+   hacer el populate.py
+   make populate
+
+   para acceder a la base de datos: psql -U alumnodb exam
+
+7. 
+Crear carpeta templates
+Añadir channel.html a carpeta templates
+Modificar la siguiente linea en settings.py:
+'DIRS': [os.path.join(BASE_DIR, 'templates')], // esta en la zona de templates
+
+8. -Añadir en urls de ModeloExamenProject lo siguiente:
+    #included import 
+    from django.views.generic import RedirectView
+
+    urlpatterns = [
+        path('', RedirectView.as_view(url='application/', permanent=True)),
+        path('admin/', admin.site.urls),
+    ]
+
+    # Forwards requests with the pattern application/ to the module application.urls
+    urlpatterns += [
+        path('application/', include('application.urls')),
+    ]
+   
+   -Crear en application el fichero urls.py y añadir:
+    from django.urls import path
+    from . import views
+
+    urlpatterns = [
+        path('channel/<int:pk>', views.ChannelView.as_view(), name='channel-view'),
+    ]
+
+    -Crear ChannelView. --> Se usaron variables de contexto 
+    #Falta hacer lo de la variable error
+    
+9. CREAR API--------------------------------
+
+-python3 manage.py startapp api
+
+-settings.py --> INSTALLED_APPS añadir -->     
+    'api.apps.ApiConfig', #api
+    'rest_framework', #api
+
+-urls.py (modeloExamenProject) añadir:
+    from rest_framework import routers
+    from api import views
+
+    # Rest Server router & URLs
+    router = routers.DefaultRouter()
+    router.register('channel', views.ChannelViewSet)
+    router.register('user', views.UserViewSet)
+    router.register('suscription', views.SuscriptionViewSet)
+
+    urlpatterns += [
+        path('api/v1/', include(router.urls)),
+    ]
+
+
+
+- en views.py de api hacer los viewsets  #TODO Falta PUT y DELETE??
+- crear serializers.py en api
+
+
+ VUE--------------------------------------
+ 10.
+npm init vue@3.2 project_vue
+
+Add TypeScript? No** / Yes
+Add JSX Support? No** / Yes
+Add Vue Router for Single Page Application development? No** / Yes
+Add Pinia for state management? No** / Yes
+Add Vitest for Unit Testing? No** / Yes
+Add Cypress for End-to-End testing? No** / Yes
+Add ESLint for code quality? No** / Yes
+Add Prettier for code formatting? No** / Yes
+
+cd project_vue
+npm install
+npm run dev
+
+crear fichero .env.development y añadir --> VITE_DJANGOURL=http://127.0.0.1:8001/api/v1/
+
+
+11. conectar django api con VUE api
+
+añadir a settings.py en ModeloExamen: 
+
+MIDDLEWARE -->  'corsheaders.middleware.CorsMiddleware',
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
